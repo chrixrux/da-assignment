@@ -50,7 +50,7 @@ y_train = [ [float(x[-1])] for x in train_set ]
 
 # Parameters
 learning_rate   = 0.001
-training_epochs = 2000
+training_epochs = 1000
 display_step    = 100
 
 
@@ -101,7 +101,13 @@ cost = tf.reduce_mean(tf.square(pred - y))
 #optm = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 optm = tf.train.AdamOptimizer(learning_rate).minimize(cost)
 ##corr = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-#accr = tf.reduce_mean(tf.cast(corr, "float"))
+
+mae = tf.reduce_mean(tf.abs(pred - y))
+rmse = tf.sqrt(tf.reduce_mean(tf.square(pred - y)))
+
+y_avg = reduce(lambda x_, y_: x[0] + y[0], y_train) / len(y_train)
+rae = mae/(tf.reduce_mean(tf.abs(y_avg - y)))
+rrse = rmse/tf.sqrt(tf.reduce_mean(tf.square(y_avg - y)))
 
 
 # Initializing the variables
@@ -132,13 +138,36 @@ for epoch in range(training_epochs):
         test_costs.append(test_loss)
 
 
-train_loss = sess.run(cost, feed_dict={x: x_train, y: y_train})
-test_loss = sess.run(cost, feed_dict={x: x_test, y: y_test})
-training_costs.append(train_loss)
-test_costs.append(test_loss)
-print "Train Loss: ", train_loss
-print "Test Loss: ", test_loss
-print "Absolute Loss Difference: ", abs(test_loss - train_loss)
+def get_stats(xs, ys):
+    stats = {
+        'loss': sess.run(cost, feed_dict={x: xs, y: ys}),
+        'mae': sess.run(mae, feed_dict={x: xs, y: ys}),
+        'rmse': sess.run(rmse, feed_dict={x: xs, y: ys}),
+        'rae': sess.run(rae, feed_dict={x: xs, y: ys}),
+        'rrse': sess.run(rrse, feed_dict={x: xs, y: ys})
+    }
+    return stats
+
+def print_stats(stats):
+    print "Loss (Mean Squared Error): ", round(stats['loss'], 4)
+    print "Mean Absolute Error: ", round(stats['mae'], 4)
+    print "Root Mean Squared Error: ", round(stats['rmse'], 4)
+    print "Relative Absolute Error: ", round(stats['rae'] * 100, 4), '%'
+    print "Root Relative Squared Error: ", round(stats['rrse'] * 100, 4), '%'
+
+train_stats = get_stats(x_train, y_train)
+test_stats = get_stats(x_test, y_test)
+
+training_costs.append(train_stats['loss'])
+test_costs.append(test_stats['loss'])
+
+
+print "=== Train Set ==="
+print_stats(train_stats)
+print "=== Test Set ==="
+print_stats(test_stats)
+print "==="
+print "Absolute Loss Difference: ", round(abs(test_stats['loss'] - train_stats['loss']), 4)
 
 
 # Sort train set by dependant variable to look nice on chart
