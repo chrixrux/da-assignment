@@ -100,8 +100,15 @@ pred = multilayer_perceptron(x, weights, biases)
 cost = tf.reduce_mean(tf.square(pred - y))
 #optm = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 optm = tf.train.AdamOptimizer(learning_rate).minimize(cost)
-##corr = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-#accr = tf.reduce_mean(tf.cast(corr, "float"))
+
+# Define stats
+mae = tf.reduce_mean(tf.abs(pred - y))
+mse = tf.reduce_mean(tf.square(pred - y))
+rmse = tf.sqrt(mse)
+
+y_avg = np.mean(y_train)
+rae = mae/tf.reduce_mean(tf.abs(y_avg - y))
+rrse = tf.sqrt(mse/tf.reduce_mean(tf.square(y_avg - y)))
 
 
 # Initializing the variables
@@ -120,7 +127,6 @@ test_costs = []
 
 for epoch in range(training_epochs):
     # Fit training
-    #print(sess.run(pred, feed_dict={x: x_train, y: y_train}))
     sess.run(optm, feed_dict={x: x_train, y: y_train})
     # Compute average loss
     loss = sess.run(cost, feed_dict={x: x_train, y: y_train})
@@ -132,13 +138,36 @@ for epoch in range(training_epochs):
         test_costs.append(test_loss)
 
 
-train_loss = sess.run(cost, feed_dict={x: x_train, y: y_train})
-test_loss = sess.run(cost, feed_dict={x: x_test, y: y_test})
-training_costs.append(train_loss)
-test_costs.append(test_loss)
-print "Train Loss: ", train_loss
-print "Test Loss: ", test_loss
-print "Absolute Loss Difference: ", abs(test_loss - train_loss)
+def get_stats(xs, ys):
+    stats = {
+        'loss': sess.run(cost, feed_dict={x: xs, y: ys}),
+        'mae': sess.run(mae, feed_dict={x: xs, y: ys}),
+        'rmse': sess.run(rmse, feed_dict={x: xs, y: ys}),
+        'rae': sess.run(rae, feed_dict={x: xs, y: ys}),
+        'rrse': sess.run(rrse, feed_dict={x: xs, y: ys})
+    }
+    return stats
+
+def print_stats(stats):
+    print "Loss (Mean Squared Error): ", round(stats['loss'], 4)
+    print "Mean Absolute Error: ", round(stats['mae'], 4)
+    print "Root Mean Squared Error: ", round(stats['rmse'], 4)
+    print "Relative Absolute Error: ", round(stats['rae'] * 100, 4), '%'
+    print "Root Relative Squared Error: ", round(stats['rrse'] * 100, 4), '%'
+
+train_stats = get_stats(x_train, y_train)
+test_stats = get_stats(x_test, y_test)
+
+training_costs.append(train_stats['loss'])
+test_costs.append(test_stats['loss'])
+
+
+print "=== Train Set ==="
+print_stats(train_stats)
+print "=== Test Set ==="
+print_stats(test_stats)
+print "==="
+print "Absolute Loss Difference: ", round(abs(test_stats['loss'] - train_stats['loss']), 4)
 
 
 # Sort train set by dependant variable to look nice on chart
