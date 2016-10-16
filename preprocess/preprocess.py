@@ -61,16 +61,44 @@ def preprocess_row(x):
 	]
 	return y
 
+def normalize_row(x):
+	ndigits = 4
+	# Min-max normalization: [0, 5] -> [0, 1]
+	x[6] = round(float(x[6]) / 5, ndigits) # Medu
+	x[7] = round(float(x[7]) / 5, ndigits) # Fedu
+	# Min-max normalization: [1, 4] -> [0, 1]
+	x[17] = round(float(x[17] - 1) / (4 - 1), ndigits) # traveltime
+	x[18] = round(float(x[18] - 1) / (4 - 1), ndigits) # studytime
+	# Min-max normalization: [0, 4] -> [0, 1]
+	x[19] = round(float(x[19] - 0) / (4 - 0), ndigits) # failures
+	# Min-max normalization: [1, 5] -> [0, 1]
+	x[28] = round(float(x[28] - 1) / (5 - 1), ndigits) # famrel
+	x[29] = round(float(x[29] - 1) / (5 - 1), ndigits) # freetime
+	x[30] = round(float(x[30] - 1) / (5 - 1), ndigits) # goout
+	x[31] = round(float(x[31] - 1) / (5 - 1), ndigits) # Dalc
+	x[32] = round(float(x[32] - 1) / (5 - 1), ndigits) # Walc
+	x[33] = round(float(x[33] - 1) / (5 - 1), ndigits) # health
+	# Min-max normalization: [0, 93] -> [0, 1]
+	x[34] = round(float(x[34]) / 93, ndigits) # absences
+	return x
+
 def main():
-	if (len(sys.argv) != 3):
-		print("usage: ./preprocess.py <input_file> <output_file>")
+	if (len(sys.argv) != 3 and len(sys.argv) != 4 and (len(sys.argv) != 4 or sys.argv[3] != '--normalize')):
+		print("usage: ./preprocess.py <input_file> <output_file> [--normalize]")
+		print("./preprocess.py ../dataset/student-por.csv ../dataset/student-por-preprocessed.csv")
+		print("./preprocess.py ../dataset/student-por.csv ../dataset/student-por-preprocessed-normalized.csv --normalize")
 		exit()
 
 	in_file = sys.argv[1]
 	out_file = sys.argv[2]
+	normalize = (len(sys.argv) == 4 and sys.argv[3] == '--normalize');
 
 	data = load_csv(in_file)
 	data = [ preprocess_row(row) for row in data ]
+
+	if (normalize):
+		data = [ normalize_row(row) for row in data ]
+
 	header = [
 		'school',
 		'sex',

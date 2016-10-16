@@ -18,7 +18,7 @@ def load_csv(filename):
     return data
 
 
-data = load_csv('../dataset/student-por-preprocessed.csv')
+data = load_csv('../dataset/student-por-preprocessed-normalized.csv')
 
 # Split dataset into testing and training set
 random.shuffle(data)
@@ -50,7 +50,7 @@ y_train = [ [float(x[-1])] for x in train_set ]
 
 # Parameters
 learning_rate   = 0.001
-training_epochs = 1000
+training_epochs = 2000
 display_step    = 100
 
 
