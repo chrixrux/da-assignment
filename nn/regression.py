@@ -50,7 +50,7 @@ y_train = [ [float(x[-1])] for x in train_set ]
 
 # Parameters
 learning_rate   = 0.001
-training_epochs = 1000
+training_epochs = 2000
 display_step    = 100
 
 
@@ -100,14 +100,15 @@ pred = multilayer_perceptron(x, weights, biases)
 cost = tf.reduce_mean(tf.square(pred - y))
 #optm = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cost)
 optm = tf.train.AdamOptimizer(learning_rate).minimize(cost)
-##corr = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
 
+# Define stats
 mae = tf.reduce_mean(tf.abs(pred - y))
-rmse = tf.sqrt(tf.reduce_mean(tf.square(pred - y)))
+mse = tf.reduce_mean(tf.square(pred - y))
+rmse = tf.sqrt(mse)
 
-y_avg = reduce(lambda x_, y_: x[0] + y[0], y_train) / len(y_train)
-rae = mae/(tf.reduce_mean(tf.abs(y_avg - y)))
-rrse = rmse/tf.sqrt(tf.reduce_mean(tf.square(y_avg - y)))
+y_avg = np.mean(y_train)
+rae = mae/tf.reduce_mean(tf.abs(y_avg - y))
+rrse = tf.sqrt(mse/tf.reduce_mean(tf.square(y_avg - y)))
 
 
 # Initializing the variables
@@ -126,7 +127,6 @@ test_costs = []
 
 for epoch in range(training_epochs):
     # Fit training
-    #print(sess.run(pred, feed_dict={x: x_train, y: y_train}))
     sess.run(optm, feed_dict={x: x_train, y: y_train})
     # Compute average loss
     loss = sess.run(cost, feed_dict={x: x_train, y: y_train})
