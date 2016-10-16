@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -16,7 +18,7 @@ def load_csv(filename):
     return data
 
 
-data = load_csv('../dataset/student-por.csv')
+data = load_csv('../dataset/student-por-preprocessed.csv')
 
 # Split dataset into testing and training set
 random.shuffle(data)
@@ -29,65 +31,26 @@ print "Training Set:", len(train_set), "items"
 
 
 # Sort test set by dependant variable to look nice on chart
-test_set.sort(key=lambda x: int(x[-1]))
-train_set.sort(key=lambda x: int(x[-1]))
+test_set.sort(key=lambda x: float(x[-1]))
 
 
 # Separate inputs and outputs
-x_test = [ x[:30] for x in test_set ]
-y_test = [ [int(x[-1])] for x in test_set ]
-x_train = [ x[:30] for x in train_set ]
-y_train = [ [int(x[-1])] for x in train_set ]
-
-
-
-def preprocess_row(row):
-    row[0] = (row[0] == 'GP') # school
-    row[1] = (row[1] == 'M') # sex
-    row[2] = int(row[2]) # age
-    row[3] = (row[3] == 'U') # address
-    row[4] = (row[4] == 'GT3') # famsize
-    row[5] = (row[5] == 'T') # Pstatus
-    row[6] = int(row[6]) # Medu
-    row[7] = int(row[7]) # Fedu
-    jobs = ['teacher', 'health', 'services', 'at_home', 'other']
-    row[8] = jobs.index(row[8]) # Mjob
-    row[9] = jobs.index(row[9]) # Fjob
-    reasons = ['home', 'reputation', 'course', 'other']
-    row[10] = reasons.index(row[10]) # reason
-    guardians = ['mother', 'father', 'other']
-    row[11] = guardians.index(row[11]) # guardian
-    row[12] = int(row[12]) # traveltime
-    row[13] = int(row[13]) # studytime
-    row[14] = int(row[14]) # failures
-    row[15] = (row[15] == 'yes') # schoolsup
-    row[16] = (row[16] == 'yes') # famsup
-    row[17] = (row[17] == 'yes') # paid
-    row[18] = (row[18] == 'yes') # activities
-    row[19] = (row[19] == 'yes') # nursery
-    row[20] = (row[20] == 'yes') # higher
-    row[21] = (row[21] == 'yes') # internet
-    row[22] = (row[22] == 'yes') # romantic
-    row[23] = int(row[22]) # famrel
-    row[24] = int(row[22]) # freetime
-    row[25] = int(row[22]) # goout
-    row[26] = int(row[22]) # Dalc
-    row[27] = int(row[22]) # Walc
-    row[28] = int(row[22]) # health
-    row[29] = int(row[22]) # absences
-    return row
+x_test = [ x[:35] for x in test_set ]
+y_test = [ [float(x[-1])] for x in test_set ]
+x_train = [ x[:35] for x in train_set ]
+y_train = [ [float(x[-1])] for x in train_set ]
 
 
 # Preprocess dataset
-x_test = [ preprocess_row(x) for x in x_test ]
-x_train = [ preprocess_row(x) for x in x_train ]
+#x_test = [ preprocess_row(x) for x in x_test ]
+#x_train = [ preprocess_row(x) for x in x_train ]
 
 #normalize(x_train, x_test)
 
 
 # Parameters
 learning_rate   = 0.001
-training_epochs = 3000
+training_epochs = 1000
 display_step    = 100
 
 
@@ -95,7 +58,7 @@ display_step    = 100
 n_hidden_1 = 15 # 1st layer num features
 n_hidden_2 = 15 # 2nd layer num features
 n_hidden_3 = 15 # 3nd layer num features
-n_input = 30 # data input
+n_input = 35 # data input
 n_output = 1
 
 
@@ -171,9 +134,17 @@ for epoch in range(training_epochs):
 
 train_loss = sess.run(cost, feed_dict={x: x_train, y: y_train})
 test_loss = sess.run(cost, feed_dict={x: x_test, y: y_test})
+training_costs.append(train_loss)
+test_costs.append(test_loss)
 print "Train Loss: ", train_loss
 print "Test Loss: ", test_loss
 print "Absolute Loss Difference: ", abs(test_loss - train_loss)
+
+
+# Sort train set by dependant variable to look nice on chart
+train_set.sort(key=lambda x_: float(x_[-1]))
+x_train = [ x_[:35] for x_ in train_set ]
+y_train = [ [float(x_[-1])] for x_ in train_set ]
 
 
 
@@ -205,9 +176,9 @@ plt.savefig('accuracy_test.png', format='png')
 
 plt.clf()
 
-skip_steps = 1
-plt.plot(range(display_step*skip_steps, training_epochs, display_step), training_costs[skip_steps:], label='training loss')
-plt.plot(range(display_step*skip_steps, training_epochs, display_step), test_costs[skip_steps:], label='test loss')
+
+plt.plot(range(display_step, training_epochs + display_step, display_step), training_costs[1:], label='training loss')
+plt.plot(range(display_step, training_epochs + display_step, display_step), test_costs[1:], label='test loss')
 plt.legend()
 plt.ylabel('cost')
 plt.xlabel('epoch')
