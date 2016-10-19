@@ -14,7 +14,7 @@ def load_csv(filename):
 
 def save_csv(filename, data):
 	with open(filename, 'wb') as csvfile:
-		writer = csv.writer(csvfile, delimiter=';')
+		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerows(data)
 
 def preprocess_row(x):
