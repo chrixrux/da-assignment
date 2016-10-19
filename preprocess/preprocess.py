@@ -14,7 +14,7 @@ def load_csv(filename):
 
 def save_csv(filename, data):
 	with open(filename, 'wb') as csvfile:
-		writer = csv.writer(csvfile, delimiter=';')
+		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerows(data)
 
 def preprocess_row(x):
@@ -57,7 +57,8 @@ def preprocess_row(x):
 		int(x[27]), # Walc
 		int(x[28]), # health
 		int(x[29]), # absences
-		round((int(x[30]) + int(x[31]) + int(x[32])) / 3., 1) # grade
+		round((int(x[30]) + int(x[31]) + int(x[32])) / 3., 1), # grade_avg
+		int(int(x[32]) - int(x[30])) # grade_improvement
 	]
 	return y
 
@@ -135,7 +136,8 @@ def main():
 		'Walc',
 		'health',
 		'absences',
-		'grade'
+		'grade_avg',
+		'grade_improvement'
 	]
 	data.insert(0, header);
 
