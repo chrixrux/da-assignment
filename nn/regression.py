@@ -11,7 +11,7 @@ import csv
 def load_csv(filename):
     data = []
     with open(filename, 'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=';')
+        reader = csv.reader(csvfile, delimiter=',')
         next(reader, None) # skip header
         for row in reader:
             data.append(row)
@@ -31,14 +31,14 @@ print "Training Set:", len(train_set), "items"
 
 
 # Sort test set by dependant variable to look nice on chart
-test_set.sort(key=lambda x: float(x[-1]))
+test_set.sort(key=lambda x: float(x[35]))
 
 
 # Separate inputs and outputs
 x_test = [ x[:35] for x in test_set ]
-y_test = [ [float(x[-1])] for x in test_set ]
+y_test = [ [float(x[35])] for x in test_set ]
 x_train = [ x[:35] for x in train_set ]
-y_train = [ [float(x[-1])] for x in train_set ]
+y_train = [ [float(x[35])] for x in train_set ]
 
 
 # Preprocess dataset
@@ -171,9 +171,9 @@ print "Absolute Loss Difference: ", round(abs(test_stats['loss'] - train_stats['
 
 
 # Sort train set by dependant variable to look nice on chart
-train_set.sort(key=lambda x_: float(x_[-1]))
+train_set.sort(key=lambda x_: float(x_[35]))
 x_train = [ x_[:35] for x_ in train_set ]
-y_train = [ [float(x_[-1])] for x_ in train_set ]
+y_train = [ [float(x_[35])] for x_ in train_set ]
 
 
 
