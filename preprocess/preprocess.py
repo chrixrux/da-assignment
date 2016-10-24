@@ -17,6 +17,9 @@ def save_csv(filename, data):
 		writer = csv.writer(csvfile, delimiter=',')
 		writer.writerows(data)
 
+def filter_row(x):
+	return int(x[32]) > 0
+
 def preprocess_row(x):
 	y = [
 		int(x[0] == 'GP'), # school
@@ -95,7 +98,7 @@ def main():
 	normalize = (len(sys.argv) == 4 and sys.argv[3] == '--normalize');
 
 	data = load_csv(in_file)
-	data = [ preprocess_row(row) for row in data ]
+	data = [ preprocess_row(row) for row in data if filter_row(row) ]
 
 	if (normalize):
 		data = [ normalize_row(row) for row in data ]
