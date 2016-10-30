@@ -3,24 +3,30 @@
 import sys
 import csv
 
-def load_csv(filename):
-	data = []
-	with open(filename, 'rb') as csvfile:
-		reader = csv.reader(csvfile, delimiter=';')
-		next(reader, None) # skip header
-		for row in reader:
-			data.append(row)
-	return data
-
-def save_csv(filename, data):
-	with open(filename, 'wb') as csvfile:
-		writer = csv.writer(csvfile, delimiter=',')
-		writer.writerows(data)
+sys.path.append('../dataset')
+import utils
 
 def filter_row(x):
 	return int(x[32]) > 0
 
+def grade_class(grade):
+	if (grade >= 16):
+		return 1
+	elif (grade >= 14):
+		return 2
+	elif (grade >= 12):
+		return 3
+	elif (grade >= 10):
+		return 4
+	else:
+		return 5
+
+def improvement_class(improvement):
+	return int(improvement > 0)
+
 def preprocess_row(x):
+	grade_avg = round((int(x[30]) + int(x[31]) + int(x[32])) / 3., 1)
+	grade_improvement = int(x[32]) - int(x[30])
 	y = [
 		int(x[0] == 'GP'), # school
 		int(x[1] == 'M'), # sex
@@ -60,8 +66,10 @@ def preprocess_row(x):
 		int(x[27]), # Walc
 		int(x[28]), # health
 		int(x[29]), # absences
-		round((int(x[30]) + int(x[31]) + int(x[32])) / 3., 1), # grade_avg
-		int(int(x[32]) - int(x[30])) # grade_improvement
+		grade_avg, # grade_avg
+		grade_improvement, # grade_improvement
+		grade_class(grade_avg), # grade_avg_class
+		improvement_class(grade_improvement) # grade_improvement_class
 	]
 	return y
 
@@ -89,15 +97,15 @@ def normalize_row(x):
 def main():
 	if (len(sys.argv) != 3 and len(sys.argv) != 4 and (len(sys.argv) != 4 or sys.argv[3] != '--normalize')):
 		print("usage: ./preprocess.py <input_file> <output_file> [--normalize]")
-		print("./preprocess.py ../dataset/student-por.csv ../dataset/student-por-preprocessed.csv")
-		print("./preprocess.py ../dataset/student-por.csv ../dataset/student-por-preprocessed-normalized.csv --normalize")
+		print("./preprocess.py ../dataset/student-por-test.csv ../dataset/student-por-test-preprocessed-normalized.csv --normalize")
+		print("./preprocess.py ../dataset/student-por-train.csv ../dataset/student-por-train-preprocessed-normalized.csv --normalize")
 		exit()
 
 	in_file = sys.argv[1]
 	out_file = sys.argv[2]
 	normalize = (len(sys.argv) == 4 and sys.argv[3] == '--normalize');
 
-	data = load_csv(in_file)
+	data = utils.load_csv(in_file, ';')
 	data = [ preprocess_row(row) for row in data if filter_row(row) ]
 
 	if (normalize):
@@ -140,11 +148,13 @@ def main():
 		'health',
 		'absences',
 		'grade_avg',
-		'grade_improvement'
+		'grade_improvement',
+		'grade_avg_class',
+		'grade_improvement_class'
 	]
 	data.insert(0, header);
 
-	save_csv(out_file, data)
+	utils.save_csv(out_file, data, ',')
 
 if __name__ == "__main__":
 	main()

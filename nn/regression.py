@@ -6,25 +6,15 @@ import matplotlib.pyplot as plt
 import random
 import math
 import csv
+import sys
+
+sys.path.append('../dataset')
+import utils
 
 
-def load_csv(filename):
-    data = []
-    with open(filename, 'rb') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        next(reader, None) # skip header
-        for row in reader:
-            data.append(row)
-    return data
+train_set = utils.load_csv('../dataset/student-por-train-preprocessed-normalized.csv')
+test_set = utils.load_csv('../dataset/student-por-test-preprocessed-normalized.csv')
 
-
-data = load_csv('../dataset/student-por-preprocessed-normalized.csv')
-
-# Split dataset into testing and training set
-random.shuffle(data)
-test_size = len(data)/3
-test_set = data[:test_size]
-train_set = data[test_size:]
 
 print "Testing Set:", len(test_set), "items"
 print "Training Set:", len(train_set), "items"
