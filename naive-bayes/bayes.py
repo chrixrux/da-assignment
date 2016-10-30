@@ -28,6 +28,7 @@ x_train = [ x[:35] for x in train_set ]
 avg_train = [ x[37] for x in train_set ]
 improvement_train = [ x[38] for x in train_set ]
 
+print('Predict AVG Grade Class')
 gnb = GaussianNB()
 avg_pred = gnb.fit(x_train, avg_train).predict(x_test)
 
@@ -38,4 +39,18 @@ print(matrix)
 
 print('Classification Report')
 report = classification_report(avg_test, avg_pred)
+print(report)
+
+# Predict Improvement
+print('Predict Improvement Class')
+
+gnb = GaussianNB()
+improvement_pred = gnb.fit(x_train, improvement_train).predict(x_test)
+
+print('Confusion Matrix')
+matrix = confusion_matrix(improvement_test, improvement_pred)
+print(matrix)
+
+print('Classification Report')
+report = classification_report(improvement_test, improvement_pred)
 print(report)
