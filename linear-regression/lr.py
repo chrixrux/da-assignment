@@ -17,6 +17,20 @@ train_set = utils.load_csv('../dataset/student-por-train-preprocessed-normalized
 def numerize(record):
     return [float(val) for val in record]
 
+def fs(record):
+	return x[:35]
+    selected = []
+    selected.append(record[0]) # school
+    selected.append(record[6]) # Medu
+    selected.append(record[7]) # Fedu
+    selected.append(record[11]) # reason_reputation
+    selected.append(record[18]) # studytime
+    selected.append(record[19]) # failures
+    selected.append(record[25]) # higher
+    selected.append(record[31]) # Dalc
+    selected.append(record[34]) # absences
+    #return selected
+
 test_set = [numerize(record) for record in test_set]
 train_set = [numerize(record) for record in train_set]
 
@@ -26,10 +40,10 @@ test_set.sort(key=lambda x: float(x[35]))
 
 
 # Separate inputs and outputs
-x_test = [ x[:35] for x in test_set ]
+x_test = [ fs(x) for x in test_set ]
 avg_test = [ x[35] for x in test_set ]
 
-x_train = [ x[:35] for x in train_set ]
+x_train = [ fs(x) for x in train_set ]
 avg_train = [ x[35] for x in train_set ]
 
 print('Predict AVG Grade')
@@ -38,11 +52,20 @@ regr.fit(x_train, avg_train)
 
 pred_test = regr.predict(x_test)
 
+mse = np.mean((pred_test - avg_test) ** 2)
+mae = np.mean(np.abs(pred_test - avg_test))
+
+avg_train_avg = np.mean(avg_train)
+avg_error = np.mean(np.abs(avg_test - avg_train_avg))
+rae = mae/avg_error
+
 # The coefficients
 print('Coefficients: \n', regr.coef_)
 # The mean squared error
-print("Mean squared error: %.2f"
-      % np.mean((pred_test - avg_test) ** 2))
+print("Mean squared error: %.2f" % mse)
+print("Mean absolute error: %.2f" % mae)
+#print("AVG error: %.2f" % avg_error)
+print("Relative absolute error: %.4f %%" % (rae * 100))
 # Explained variance score: 1 is perfect prediction
 print('Variance score: %.2f' % regr.score(x_test, avg_test))
 

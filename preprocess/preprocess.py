@@ -21,8 +21,17 @@ def grade_class(grade):
 	else:
 		return 5
 
-def improvement_class(improvement):
-	return int(improvement > 0)
+def calculate_avg_grade(data):
+	sum = 0.
+
+	for record in data:
+		sum += record[35]
+
+	return sum/len(data)
+
+def append_grade_above_avg(row, avg_grade):
+	row.append(int(row[35] > avg_grade))
+	return row
 
 def preprocess_row(x):
 	grade_avg = round((int(x[30]) + int(x[31]) + int(x[32])) / 3., 1)
@@ -67,9 +76,7 @@ def preprocess_row(x):
 		int(x[28]), # health
 		int(x[29]), # absences
 		grade_avg, # grade_avg
-		grade_improvement, # grade_improvement
-		grade_class(grade_avg), # grade_avg_class
-		improvement_class(grade_improvement) # grade_improvement_class
+		grade_class(grade_avg) # grade_avg_class
 	]
 	return y
 
@@ -107,6 +114,9 @@ def main():
 
 	data = utils.load_csv(in_file, ';')
 	data = [ preprocess_row(row) for row in data if filter_row(row) ]
+
+	avg_grade = calculate_avg_grade(data)
+	data = [ append_grade_above_avg(row, avg_grade) for row in data ]
 
 	if (normalize):
 		data = [ normalize_row(row) for row in data ]
@@ -148,9 +158,8 @@ def main():
 		'health',
 		'absences',
 		'grade_avg',
-		'grade_improvement',
 		'grade_avg_class',
-		'grade_improvement_class'
+		'grade_above_avg'
 	]
 	data.insert(0, header);
 

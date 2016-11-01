@@ -45,8 +45,8 @@ display_step    = 100
 
 
 # Network Parameters
-n_hidden_1 = 15 # 1st layer num features
-n_hidden_2 = 15 # 2nd layer num features
+n_hidden_1 = 30 # 1st layer num features
+n_hidden_2 = 30 # 2nd layer num features
 n_hidden_3 = 15 # 3nd layer num features
 n_input = 35 # data input
 n_output = 1
@@ -97,7 +97,8 @@ mse = tf.reduce_mean(tf.square(pred - y))
 rmse = tf.sqrt(mse)
 
 y_avg = np.mean(y_train)
-rae = mae/tf.reduce_mean(tf.abs(y_avg - y))
+avg_error = tf.reduce_mean(tf.abs(y_avg - y))
+rae = mae/avg_error
 rrse = tf.sqrt(mse/tf.reduce_mean(tf.square(y_avg - y)))
 
 
