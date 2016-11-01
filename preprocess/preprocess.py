@@ -115,7 +115,8 @@ def main():
 	data = utils.load_csv(in_file, ';')
 	data = [ preprocess_row(row) for row in data if filter_row(row) ]
 
-	avg_grade = calculate_avg_grade(data)
+	#avg_grade = calculate_avg_grade(data)
+	avg_grade = 11.8931279621 # train set avg
 	data = [ append_grade_above_avg(row, avg_grade) for row in data ]
 
 	if (normalize):
