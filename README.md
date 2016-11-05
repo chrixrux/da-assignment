@@ -26,10 +26,10 @@ java -jar kNN.jar pathToDataset header percentage k seed
 ```
 to start it with just one set.
 
-* pathTo*Set: Specifies the path to the dataset(s) relative to the current directory.
-* header: Boolean variable specifying whether the dataset contains a header row with attribute names. If you use the program with a separate testing set, this value is applied to both sets.
-* percentage: Percentage of the whole dataset to use for testing.
-* k: Number of neighbours used for classfication.
-* seed: The seed used to select the test set. This is not necessary when using a sperate test set.
+* **pathTo*Set:** Specifies the path to the dataset(s) relative to the current directory.
+* **header:** Boolean variable specifying whether the dataset contains a header row with attribute names. If you use the program with a separate testing set, this value is applied to both sets.
+* **percentage:** Percentage of the whole dataset to use for testing.
+* **k:** Number of neighbours used for classfication.
+* **seed:** The seed used to select the test set. This is not necessary when using a sperate test set.
 
 To reproduce the results that were discussed in the report in section X.X.X  ... To be continued.
