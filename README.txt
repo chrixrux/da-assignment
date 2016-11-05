@@ -12,18 +12,18 @@ Group Members
 |Groschupp Friederike Juliane    | N1602589L     |
 |Arcenas Carlos Alberto Lagdameo |
 
-### k nearest Neighbour
+k nearest Neighbour
 The k nearest neighbour algorithm was implemented in Java from scratch. It can be used either with a training set and a seperate test set or just one set with a specified percentage to use for testing.
 Please make sure that only valid CSV files, i.e. commas as delimiters and dots as decimal seperators, are passed as arugments.
 
 Please navigate to the kNN folder and type
-```
+
 java -jar kNN.jar pathToTrainingSet pathToTestSet header k
-```
+
 to run the program with two seperate sets or type
-```
+
 java -jar kNN.jar pathToDataset header percentage k seed
-```
+
 to start it with just one set.
 
 * pathTo*Set: Specifies the path to the dataset(s) relative to the current directory.
