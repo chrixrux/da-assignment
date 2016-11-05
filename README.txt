@@ -1,18 +1,18 @@
-# NTU CZ4032 - Data Analytics and Mining - Group 34
-## Predicting School Performance in Portuguese Youth
+NTU CZ4032 - Data Analytics and Mining - Group 34
+Predicting School Performance in Portuguese Youth
 This is the plain README.txt file, however we recommend to read the formatted Markdown file available at: https://github.com/chrixrux/da-assignment.
 
-### Group Members
-Name | Matric. Number
----- | -------------
-Skala Matous |
-Widmer Christian | N1602590C
-Hunshamar Bjørnar |
-Efrem Afework Yared |
-Groschupp Friederike Juliane | N1602589L
-Arcenas Carlos Alberto Lagdameo |
+Group Members
+|Name                            | Matric. Number|
+|--------------------------------|---------------|
+|Skala Matous                    |
+|Widmer Christian                | N1602590C     |
+|Hunshamar Bjørnar               |
+|Efrem Afework Yared             |
+|Groschupp Friederike Juliane    | N1602589L     |
+|Arcenas Carlos Alberto Lagdameo |
 
-### k nearest Neighbour  
+### k nearest Neighbour
 The k nearest neighbour algorithm was implemented in Java from scratch. It can be used either with a training set and a seperate test set or just one set with a specified percentage to use for testing.
 Please make sure that only valid CSV files, i.e. commas as delimiters and dots as decimal seperators, are passed as arugments.
 
