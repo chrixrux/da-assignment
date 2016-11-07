@@ -16,11 +16,7 @@ Arcenas Carlos Alberto Lagdameo |
 The k nearest neighbour algorithm was implemented in Java from scratch. It can be used either with a training set and a seperate test set or just one set with a specified percentage to use for testing.
 Please make sure that only valid CSV files, i.e. commas as delimiters and dots as decimal seperators, are passed as arugments.
 
-The submitted zip contains all files necessary to build and run the algorithm. Please navigate to the kNN folder and type
-```
-ant
-```
-to execute the Ant build file and create the runnable jar. Afterwards you can type
+The submitted zip contains all files necessary to build and run the algorithm. Please navigate to the kNN folder and type `ant` to execute the Ant build file and create the runnable jar. Afterwards you can type
 ```
 java -jar kNN.jar pathToTrainingSet pathToTestSet header k
 ```
