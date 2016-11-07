@@ -1,7 +1,7 @@
 <project name="kNN" default="build">
 	<target name="clean">
 		<delete dir="build" />
-		<delete dir="kNN.jar"/>
+		<delete file="kNN.jar"/>
 	</target>
 
 	<target name="compile">
@@ -12,7 +12,7 @@
 	<target name="jar" depends="compile">
 		<jar destfile="kNN.jar" basedir="build/classes">
 			<manifest>
-				<attribute name="Main-Class" value="kNN.KNN" />
+				<attribute name="Main-Class" value="kNN.Main" />
 			</manifest>
 		</jar>
 	</target>
