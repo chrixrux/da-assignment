@@ -1,0 +1,20 @@
+<project name="kNN" default="build">
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="kNN.jar"/>
+	</target>
+
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="kNN.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="kNN.KNN" />
+			</manifest>
+		</jar>
+	</target>
+	<target name = "build" depends= "clean,jar"/>
+</project>
