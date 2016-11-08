@@ -53,7 +53,7 @@ Incorreclty classified instances: 81.0
 Accuracy: 0.6142857142857143
 
 Confusion Matrix:
-Actual Class: 		  1 	0
+Actual Class: 		1 	0
 Predicted Class: 1	70	58
 Predicted Class: 0	23	59
 ```
@@ -74,12 +74,12 @@ Incorreclty classified instances: 141.0
 Accuracy: 0.32857142857142857
 
 Confusion Matrix:
-Actual Class: 		  1 	2  	3  	4  	5
-Predicted Class: 1	5  	3  	5  	5	  3
-Predicted Class: 2	4  	6  	14	13	7
-Predicted Class: 3	4  	6  	23	22	8
-Predicted Class: 4	2  	5  	8	  18	11
-Predicted Class: 5	1  	2  	5	  13	17
+Actual Class: 	  1  2  3  4  5
+Predicted Class: 1  5  3  5  5  3
+Predicted Class: 2  4  6  14 13 7
+Predicted Class: 3  4  6  23 22 8
+Predicted Class: 4  2  5  8  18 11
+Predicted Class: 5  1  2  5  13 17
 ```
 **Comment:** 1 corresponds to "Very Good", ..., 5 corresponds to "Fail".
 _____
