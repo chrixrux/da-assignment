@@ -48,18 +48,22 @@ public  class KNN {
 		double accuracy = correctlyClassified / sizeTestSet;
 		System.out.println("Accuracy: " + accuracy);
 		
+		//System.out.println("The predicted class labels are listed vertical, while the actual class labels are listed horizontal. \n");
+		System.out.println("\nConfusion Matrix:");
+		System.out.print("Actual Class: \t");
 		for(int i =0; i < classLabels.size(); i++){
 			System.out.print("\t" + classLabels.get(i));
 		}
 		
 		System.out.println();
 		for (int i = 0; i< classLabels.size(); i++) {
-			System.out.print(classLabels.get(i) + "\t");
+			System.out.print("Predicted Class: " + classLabels.get(i) + "\t");
 			for (int j =0; j < classLabels.size(); j++) {
 				System.out.print(confusionMatrix[i][j] + "\t");
 			}
 			System.out.println();
 		} 
+		System.out.println();
 	}
 	
 	private List<Instance> getKNearestNeighbours(List<Instance> trainingSet, Instance testInstance, int k) {

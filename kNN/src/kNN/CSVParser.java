@@ -13,7 +13,7 @@ import java.util.List;
  *
  */
 public class CSVParser {
-	private static  String DELIMITER = ";";
+	private static  String DELIMITER = ",";
 	/**
 	 * 
 	 * @param path to the csv file

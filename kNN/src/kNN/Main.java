@@ -104,13 +104,13 @@ public class Main {
 }
 
 	public static void printUsage() {
-		System.out.println("To use the program with a separate test set please type: \n "
-				+ "java -jar kNN.jar pathToTrainingSet pathToTestSet header k \n "
-				+ " To use the algorithm with one full set and a percentage for testing please type: \n"
-				+ " java -jar kNN.jar path header percentage k seed \n"
+		System.out.println("To use the program with a separate test set please type: \n \n "
+				+ "java -jar kNN.jar pathToTrainingSet pathToTestSet header k \n \n"
+				+ " To use the algorithm with one full set and a percentage for testing please type: \n\n"
+				+ " java -jar kNN.jar path header percentage k seed \n\n"
 				+ "All parameters are required to run the program. \n"
 				+ "Path: The path to the dataset(s). Make sure it's a CSV file using commas as separators and dots to seperate decimals.\n "
-				+ "Header: Boolean variable specifying whether the dataset contains a header row with attribute names. "
+				+ "Header: Boolean variable specifying whether the dataset contains a header row with attribute names. \n"
 				+ "If you use the program with a separate testing set, this value is applied to both sets. \n"
 				+ "Percentage: Percentage of the whole dataset to use for testing.\n"
 				+ " k: Number of neighbours used for classfication.\n "
