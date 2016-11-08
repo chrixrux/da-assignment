@@ -5,12 +5,12 @@ This is the plain README.txt file, however we recommend to read the formatted Ma
 ### Group Members
 Name | Matric. Number
 ---- | -------------
-Skala Matous |
+Skala Matous | N1602866H
 Widmer Christian | N1602590C
-Hunshamar Bjørnar |
-Efrem Afework Yared |
+Hunshamar Bjørnar | N1602951E
+Efrem Afework Yared | N1603716J
 Groschupp Friederike Juliane | N1602589L
-Arcenas Carlos Alberto Lagdameo |
+Arcenas Carlos Alberto Lagdameo | N1604152E
 
 ### k nearest Neighbour  
 The k nearest neighbour algorithm was implemented in Java from scratch. It can be used either with a training set and a seperate test set or just one set with a specified percentage to use for testing.
