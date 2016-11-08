@@ -20,7 +20,7 @@ public  class KNN {
 				classLabels.add(instance.classValue);
 			}
 		}
-		
+		Collections.sort(classLabels);
 		int[][] confusionMatrix = new int[classLabels.size()][classLabels.size()];
 		for(Instance instance: testSet) {
 			List<Instance> neighbours = getKNearestNeighbours(trainingSet, instance, k);
