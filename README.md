@@ -53,9 +53,19 @@ Incorreclty classified instances: 81.0
 Accuracy: 0.6142857142857143
 
 Confusion Matrix:
-Actual Class: 		1 	0
-Predicted Class: 1	70	58
-Predicted Class: 0	23	59
+Actual Class: 		0	1
+Predicted Class: 0	59	23
+Predicted Class: 1	58	70
+
+Evaluation Metrics:
+Class 	 Precision 	 Recall 	 F1
+0          0.720          0.504          0.593
+1          0.547          0.753          0.633
+
+Average Evaluation Metrics:
+Precision: 0.633
+Recall:    0.628
+F1:        0.613
 ```
 ____
 
@@ -74,12 +84,25 @@ Incorreclty classified instances: 141.0
 Accuracy: 0.32857142857142857
 
 Confusion Matrix:
-Actual Class: 	  1  2  3  4  5
-Predicted Class: 1  5  3  5  5  3
-Predicted Class: 2  4  6  14 13 7
-Predicted Class: 3  4  6  23 22 8
-Predicted Class: 4  2  5  8  18 11
-Predicted Class: 5  1  2  5  13 17
+Actual Class: 		1	2	3	4	5
+Predicted Class: 1	5	3	5	5	3
+Predicted Class: 2	4	6	14	13	7
+Predicted Class: 3	4	6	23	22	8
+Predicted Class: 4	2	5	8	18	11
+Predicted Class: 5	1	2	5	13	17
+
+Evaluation Metrics:
+Class 	 Precision 	 Recall 	 F1
+1          0.238          0.313          0.270
+2          0.136          0.273          0.182
+3          0.365          0.418          0.390
+4          0.409          0.254          0.313
+5          0.447          0.370          0.405
+
+Average Evaluation Metrics:
+Precision: 0.319
+Recall:    0.325
+F1:        0.312
 ```
 **Comment:** 1 corresponds to "Very Good", ..., 5 corresponds to "Fail".
 _____
