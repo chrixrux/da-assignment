@@ -19,17 +19,6 @@ def numerize(record):
 
 def fs(record):
 	return x[:35]
-    selected = []
-    selected.append(record[0]) # school
-    selected.append(record[6]) # Medu
-    selected.append(record[7]) # Fedu
-    selected.append(record[11]) # reason_reputation
-    selected.append(record[18]) # studytime
-    selected.append(record[19]) # failures
-    selected.append(record[25]) # higher
-    selected.append(record[31]) # Dalc
-    selected.append(record[34]) # absences
-    #return selected
 
 test_set = [numerize(record) for record in test_set]
 train_set = [numerize(record) for record in train_set]
@@ -104,3 +93,10 @@ plt.savefig('accuracy_test.png', format='png')
 
 plt.clf()
 
+
+
+plt.plot(avg_test, pred_test, 'ro')
+plt.ylabel('predicted')
+plt.xlabel('target')
+plt.axis([0,20,0,20])
+plt.savefig('l_regression_test.png', format='png')

@@ -40,13 +40,13 @@ y_train = [ [float(x[35])] for x in train_set ]
 
 # Parameters
 learning_rate   = 0.001
-training_epochs = 2000
+training_epochs = 4000
 display_step    = 100
 
 
 # Network Parameters
-n_hidden_1 = 30 # 1st layer num features
-n_hidden_2 = 30 # 2nd layer num features
+n_hidden_1 = 15 # 1st layer num features
+n_hidden_2 = 15 # 2nd layer num features
 n_hidden_3 = 15 # 3nd layer num features
 n_input = 35 # data input
 n_output = 1
@@ -62,7 +62,7 @@ def multilayer_perceptron(_X, _weights, _biases):
     layer_1 = tf.nn.relu(tf.add(tf.matmul(_X, _weights['h1']), _biases['b1']))
     layer_2 = tf.nn.relu(tf.add(tf.matmul(layer_1, _weights['h2']), _biases['b2']))
     layer_3 = tf.nn.relu(tf.add(tf.matmul(layer_2, _weights['h3']), _biases['b3']))
-    return tf.matmul(layer_3, _weights['out']) + _biases['out']
+    return tf.matmul(layer_1, _weights['out']) + _biases['out']
 
 
 # Store layers weight & bias
@@ -182,6 +182,13 @@ plt.savefig('accuracy_train.png', format='png')
 
 
 plt.clf()
+plt.plot(y_train, ys, 'ro')
+plt.ylabel('predicted')
+plt.xlabel('target')
+plt.savefig('regression_train.png', format='png')
+
+
+plt.clf()
 
 ys = sess.run(pred, feed_dict={x: x_test})
 
@@ -192,6 +199,15 @@ plt.legend(loc=4)
 plt.ylabel('grade')
 plt.xlabel('student #')
 plt.savefig('accuracy_test.png', format='png')
+
+
+plt.clf()
+plt.plot(y_test, ys, 'ro')
+plt.ylabel('predicted')
+plt.xlabel('target')
+plt.axis([0,20,0,20])
+plt.savefig('regression_test.png', format='png')
+
 
 
 plt.clf()
