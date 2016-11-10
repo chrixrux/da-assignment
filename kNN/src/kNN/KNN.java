@@ -45,30 +45,7 @@ public  class KNN {
 			}
 		} 
 		
-		int[] numberOfInstancesPerClass = new int[classLabels.size()];
-		int[] numberOfPredictionsPerClass = new int[classLabels.size()];
-		int[] numberOfCorrectlyClassifiedInstancesPerClass = new int[classLabels.size()];
 		
-			for(int i = 0; i < classLabels.size(); i++) {
-				numberOfCorrectlyClassifiedInstancesPerClass[i] = confusionMatrix[i][i];
-				for(int j =0; j< classLabels.size(); j++) {
-					numberOfInstancesPerClass[i] += confusionMatrix[j][i];
-					numberOfPredictionsPerClass[i] += confusionMatrix[i][j];
-			}
-		}
-			
-		double[][] precisionAndRecall = new double[classLabels.size()][3];
-		for(int i = 0; i < classLabels.size(); i++) {
-			//Precision
-			double precision = (double) numberOfCorrectlyClassifiedInstancesPerClass[i] /  (double) numberOfPredictionsPerClass[i]; 
-			precisionAndRecall[i][0] = precision;
-			//Recall
-			double recall =  (double) numberOfCorrectlyClassifiedInstancesPerClass[i] / (double) numberOfInstancesPerClass[i];
-			precisionAndRecall[i][1] = recall;
-			//F1
-			double f1 = 2 * precision * recall /(precision + recall);
-			precisionAndRecall[i][2] = f1;
-		}
 		System.out.println("Classified using " + k + " nearest neighbours");
 		System.out.println("Total test instances: " + sizeTestSet);
 		System.out.println("Correctly classified instances: " + correctlyClassified);
@@ -76,8 +53,9 @@ public  class KNN {
 		double accuracy = correctlyClassified / sizeTestSet;
 		System.out.println("Accuracy: " + accuracy);
 		
-		//System.out.println("The predicted class labels are listed vertical, while the actual class labels are listed horizontal. \n");
-		System.out.println("\nConfusion Matrix:");
+		//The predicted class labels are listed vertical, while the actual class labels are listed horizontal.
+		//Print confusion matrix
+		System.out.println("\nConfusion Matrix:");	
 		System.out.print("Actual Class: \t");
 		for(int i =0; i < classLabels.size(); i++){
 			System.out.print("\t" + classLabels.get(i));
@@ -90,24 +68,9 @@ public  class KNN {
 				System.out.print(confusionMatrix[i][j] + "\t");
 			}
 			System.out.println();
-		} 
-		System.out.println();
-		
-		System.out.println(Arrays.toString(numberOfInstancesPerClass));
-		System.out.println(Arrays.toString(numberOfPredictionsPerClass));
-		System.out.println(Arrays.toString(numberOfCorrectlyClassifiedInstancesPerClass));
-		
-		System.out.println("\nStats Matrix:");
-		System.out.println("Class \t Precision \t Recall \t F1");
-		for (int i = 0; i< classLabels.size(); i++) {
-			System.out.print( classLabels.get(i) + "\t");
-			for (int j =0; j < 3; j++) {
-				System.out.format("%.3f\t", precisionAndRecall[i][j]);
-			}
-			System.out.println();
-		} 
-		System.out.println();
-		
+		}
+		System.out.println("\nEvaluation Metrics:");
+		evaluateConfusionMatrix(confusionMatrix, classLabels);
 	}
 	
 	
@@ -157,7 +120,7 @@ public  class KNN {
 		return Math.sqrt(distance);
 	}
 	
-	private void evalConfusionMatrix(int[][] confusionMatrix, List<String> classLabels) {
+	private void evaluateConfusionMatrix(int[][] confusionMatrix, List<String> classLabels) {
 		//It is assumed that the index of a class is the same in the list and confusion matrix. 
 		//Additionally, it is assumed the target classes are stored horizontally and the output vertically. 
 		
@@ -165,12 +128,36 @@ public  class KNN {
 		double[] instancesPerClass = new double[classLabels.size()]; //Sum of each column 
 		double[] predictionsPerClass = new double[classLabels.size()]; //Sum of each row
 		
-		for(int i = 0; i < classLabels.size(); i++) {
+		//Iterate over confusion matrix and calculate values
+		for (int i = 0; i < classLabels.size(); i++) {
 			correctlyClassifiedPerClass[i] = confusionMatrix[i][i];
-			for(int j =0; j< classLabels.size(); j++) {
+			for (int j = 0; j < classLabels.size(); j++) {
 				instancesPerClass[i] += confusionMatrix[j][i];
 				predictionsPerClass[i] += confusionMatrix[i][j];
+			}
+		}
+		
+		//Calculate evaluation matrix and store them
+		double[][] resultMatrix = new double[classLabels.size()][3];
+		for(int i = 0; i < classLabels.size(); i++) {
+			double precision = correctlyClassifiedPerClass[i] / predictionsPerClass[i];
+			double recall = correctlyClassifiedPerClass[i] / instancesPerClass[i];
+			double f1 = 2 * precision * recall / (precision + recall);
+			resultMatrix[i][0] = precision;
+			resultMatrix[i][1] = recall;
+			resultMatrix[i][2] = f1;
+		}
+		
+		//Print result matrix
+		System.out.println("Class \t Precision \t Recall \t F1");
+		
+		for(int i = 0; i < classLabels.size(); i++) {
+			System.out.printf("%s",classLabels.get(i));
+			for (int j = 0; j < 3; j++) {
+				System.out.printf("%15.3f", resultMatrix[i][j]);
+			}
+			System.out.println();
 		}
 	}
-	}
+	
 }
