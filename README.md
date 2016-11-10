@@ -14,7 +14,7 @@ Arcenas Carlos Alberto Lagdameo | N1604152E
 
 ____
 
-### k nearest Neighbour  
+### k nearest Neighbour
 The k nearest neighbor algorithm was implemented in Java from scratch. It can be used either with a training set and a separate test set or just one set with a specified percentage to use for testing.
 Please make sure that only valid CSV files, i.e. commas as delimiters and dots as decimal separators, are passed as arguments.
 
@@ -106,3 +106,108 @@ F1:        0.312
 ```
 **Comment:** 1 corresponds to "Very Good", ..., 5 corresponds to "Fail".
 _____
+
+
+### Neural Network for Regression
+Neural network is implemented in Python with use of TensorFlow library.
+
+There is a train and test set loss printed every 100 training epochs on output. In the end, summary is printed separately for train and test set.
+
+**Command:**
+```
+python regression.py
+```
+
+**Output:**
+```
+Testing Set: 210 items
+Training Set: 422 items
+Epoch: 000/4000 train loss: 92.057121277 test loss: 86.788223267
+Epoch: 100/4000 train loss: 55.891376495 test loss: 51.652065277
+Epoch: 200/4000 train loss: 16.942264557 test loss: 14.748498917
+Epoch: 300/4000 train loss: 7.214027882 test loss: 6.719604492
+Epoch: 400/4000 train loss: 6.745038509 test loss: 6.662531853
+Epoch: 500/4000 train loss: 6.589032650 test loss: 6.574604511
+Epoch: 600/4000 train loss: 6.435916424 test loss: 6.467381001
+Epoch: 700/4000 train loss: 6.284482479 test loss: 6.362630844
+Epoch: 800/4000 train loss: 6.135331631 test loss: 6.261366844
+Epoch: 900/4000 train loss: 5.989159584 test loss: 6.164131641
+Epoch: 1000/4000 train loss: 5.846632481 test loss: 6.071414471
+Epoch: 1100/4000 train loss: 5.708371162 test loss: 5.983677387
+Epoch: 1200/4000 train loss: 5.574954987 test loss: 5.901334763
+Epoch: 1300/4000 train loss: 5.446936607 test loss: 5.824734211
+Epoch: 1400/4000 train loss: 5.324831009 test loss: 5.754186630
+Epoch: 1500/4000 train loss: 5.209113598 test loss: 5.689904690
+Epoch: 1600/4000 train loss: 5.100202560 test loss: 5.632014751
+Epoch: 1700/4000 train loss: 4.998434544 test loss: 5.580493927
+Epoch: 1800/4000 train loss: 4.904023647 test loss: 5.535174370
+Epoch: 1900/4000 train loss: 4.817032337 test loss: 5.495689869
+Epoch: 2000/4000 train loss: 4.737352848 test loss: 5.461502075
+Epoch: 2100/4000 train loss: 4.664692402 test loss: 5.431900501
+Epoch: 2200/4000 train loss: 4.598586559 test loss: 5.406054020
+Epoch: 2300/4000 train loss: 4.538440228 test loss: 5.383089542
+Epoch: 2400/4000 train loss: 4.483576775 test loss: 5.362171650
+Epoch: 2500/4000 train loss: 4.433307171 test loss: 5.342582703
+Epoch: 2600/4000 train loss: 4.386981487 test loss: 5.323789120
+Epoch: 2700/4000 train loss: 4.344039917 test loss: 5.305459499
+Epoch: 2800/4000 train loss: 4.304032326 test loss: 5.287471294
+Epoch: 2900/4000 train loss: 4.266623020 test loss: 5.269864559
+Epoch: 3000/4000 train loss: 4.231579304 test loss: 5.252801895
+Epoch: 3100/4000 train loss: 4.198749065 test loss: 5.236505985
+Epoch: 3200/4000 train loss: 4.168040752 test loss: 5.221213341
+Epoch: 3300/4000 train loss: 4.139398098 test loss: 5.207134724
+Epoch: 3400/4000 train loss: 4.112786770 test loss: 5.194436073
+Epoch: 3500/4000 train loss: 4.088179111 test loss: 5.183216572
+Epoch: 3600/4000 train loss: 4.065546513 test loss: 5.173519611
+Epoch: 3700/4000 train loss: 4.044847965 test loss: 5.165315628
+Epoch: 3800/4000 train loss: 4.026030540 test loss: 5.158532619
+Epoch: 3900/4000 train loss: 4.009027004 test loss: 5.153046608
+=== Train Set ===
+Loss (Mean Squared Error):  3.9939
+Mean Absolute Error:  1.5929
+Root Mean Squared Error:  1.9985
+Relative Absolute Error:  74.8969 %
+Root Relative Squared Error:  76.5661 %
+=== Test Set ===
+Loss (Mean Squared Error):  5.1487
+Mean Absolute Error:  1.7946
+Root Mean Squared Error:  2.2691
+Relative Absolute Error:  87.6588 %
+Root Relative Squared Error:  91.0855 %
+===
+Absolute Loss Difference:  1.1548
+```
+____
+
+
+### Linear Regression
+Linear regression is implemented in Python using scikit-learn package.
+
+**Command:**
+```
+python lr.py
+```
+
+**Output:**
+```
+Predict AVG Grade
+('Coefficients: \n', array([  6.23495532e-01,  -3.82159144e-01,   1.76563389e-01,
+         6.43945456e-03,  -1.67556713e-01,   2.78285674e-01,
+         2.15296300e+00,   6.07023945e-01,  -9.81721382e-02,
+        -3.06865004e-03,   3.48227738e+13,   3.48227738e+13,
+         3.48227738e+13,   3.48227738e+13,  -1.21717387e+13,
+        -1.21717387e+13,  -1.21717387e+13,   1.69375603e-01,
+         1.32861879e+00,  -4.51626664e+00,  -8.14978279e-01,
+        -1.91027258e-01,  -9.14310711e-01,   3.20654298e-01,
+        -1.92913455e-01,   1.45198424e+00,   3.06362941e-01,
+        -4.10465501e-01,   1.67146812e-02,  -1.22052646e-01,
+         2.98080402e-03,  -6.07930660e-01,  -6.38894714e-01,
+        -2.50024437e-01,  -5.46703684e+00]))
+Mean squared error: 5.07
+Mean absolute error: 1.77
+Relative absolute error: 86.6668 %
+Variance score: 0.17
+R2 Score (coefficient of determination): 0.174584
+```
+____
+
