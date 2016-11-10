@@ -46,7 +46,7 @@ public  class KNN {
 		} 
 		
 		
-		System.out.println("Classified using " + k + " nearest neighbours");
+		System.out.println("\nClassified using " + k + " nearest neighbours");
 		System.out.println("Total test instances: " + sizeTestSet);
 		System.out.println("Correctly classified instances: " + correctlyClassified);
 		System.out.println("Incorreclty classified instances: " + incorrectlyClassified);

@@ -39,7 +39,7 @@ to start it with just one set.
 #### How to reproduce the results
 To reproduce the results that were discussed in the report in section 4.1 please make sure to use the provided datasets. Additionally, I assume you are in the kNN folder. Each example is presented in the form of the desired **goal**, the necessary **command** to achieve the goal, and the expected **output**.
 
-**Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).
+**Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).  
 **Command:**
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-binary-train.csv ../dataset/kNN/kNN-binary-test.csv true 1
@@ -69,7 +69,7 @@ F1:        0.613
 ```
 ____
 
-**Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).
+**Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).  
 **Command:**
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-multilevel-train.csv ../dataset/kNN/kNN-multilevel-test.csv true 1
