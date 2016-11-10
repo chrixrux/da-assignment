@@ -148,6 +148,15 @@ public  class KNN {
 			resultMatrix[i][2] = f1;
 		}
 		
+		//Calculate average values
+		double[] avgValues = new double[3];
+		for (int i = 0; i < avgValues.length; i ++) {
+			for (int j = 0; j < classLabels.size(); j++) {
+				avgValues[i] += resultMatrix[j][i];
+			}
+			avgValues[i] = avgValues[i] / (double) classLabels.size();
+		}
+		
 		//Print result matrix
 		System.out.println("Class \t Precision \t Recall \t F1");
 		
@@ -158,6 +167,10 @@ public  class KNN {
 			}
 			System.out.println();
 		}
+		System.out.println("\nAverage Evaluation Metrics:");
+		System.out.printf("Precision: %.3f%n", avgValues[0]);
+		System.out.printf("Recall: %8.3f%n", avgValues[1]);
+		System.out.printf("F1: %12.3f%n", avgValues[2]);
 	}
 	
 }
