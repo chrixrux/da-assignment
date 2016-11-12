@@ -1,6 +1,7 @@
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
+from sklearn.metrics import accuracy_score
 import csv
 import random
 import sys
@@ -18,16 +19,6 @@ def numerize(record):
 def fs(record):
     return x[:35]
     selected = []
-    selected.append(record[0]) # school
-    selected.append(record[6]) # Medu
-    selected.append(record[7]) # Fedu
-    selected.append(record[11]) # reason_reputation
-    selected.append(record[18]) # studytime
-    selected.append(record[19]) # failures
-    selected.append(record[25]) # higher
-    selected.append(record[31]) # Dalc
-    selected.append(record[34]) # absences
-    #return selected
 
 test_set = [numerize(record) for record in test_set]
 train_set = [numerize(record) for record in train_set]
@@ -55,8 +46,11 @@ print('Classification Report')
 report = classification_report(avg_test, avg_pred)
 print(report)
 
+accuracy = accuracy_score(avg_test, avg_pred)
+print('Accuracy: ' + str(accuracy))
+
 # Predict Improvement
-print('Predict Above AVG')
+print('\nPredict Above AVG')
 
 gnb = GaussianNB()
 above_pred = gnb.fit(x_train, above_train).predict(x_test)
@@ -68,3 +62,6 @@ print(matrix)
 print('Classification Report')
 report = classification_report(above_test, above_pred)
 print(report)
+
+accuracy = accuracy_score(above_test, above_pred)
+print('Accuracy: ' + str(accuracy))

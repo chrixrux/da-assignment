@@ -39,7 +39,7 @@ to start it with just one set.
 #### How to reproduce the results
 To reproduce the results that were discussed in the report in section 4.1 please make sure to use the provided datasets. Additionally, I assume you are in the kNN folder. Each example is presented in the form of the desired **goal**, the necessary **command** to achieve the goal, and the expected **output**.
 
-**Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).  
+**Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).
 **Command:**
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-binary-train.csv ../dataset/kNN/kNN-binary-test.csv true 1
@@ -69,7 +69,7 @@ F1:        0.613
 ```
 ____
 
-**Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).  
+**Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).
 **Command:**
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-multilevel-train.csv ../dataset/kNN/kNN-multilevel-test.csv true 1
@@ -211,3 +211,49 @@ R2 Score (coefficient of determination): 0.174584
 ```
 ____
 
+
+### Naive Bayes
+Naive Bayes is implemented in Python using scikit-learn package.
+
+**Command:**
+```
+python bayes.py
+```
+
+**Output:**
+```
+Predict AVG Grade Class
+Confusion Matrix
+[[15  0  1  0  0]
+ [19  2  0  0  1]
+ [49  2  0  3  1]
+ [56  0  3  7  5]
+ [21  0  0  8 17]]
+Classification Report
+             precision    recall  f1-score   support
+
+        1.0       0.09      0.94      0.17        16
+        2.0       0.50      0.09      0.15        22
+        3.0       0.00      0.00      0.00        55
+        4.0       0.39      0.10      0.16        71
+        5.0       0.71      0.37      0.49        46
+
+avg / total       0.35      0.20      0.19       210
+
+Accuracy: 0.195238095238
+
+Predict Above AVG
+Confusion Matrix
+[[58 59]
+ [17 76]]
+Classification Report
+             precision    recall  f1-score   support
+
+        0.0       0.77      0.50      0.60       117
+        1.0       0.56      0.82      0.67        93
+
+avg / total       0.68      0.64      0.63       210
+
+Accuracy: 0.638095238095
+```
+____
