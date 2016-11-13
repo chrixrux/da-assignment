@@ -40,7 +40,7 @@ to start it with just one set.
 To reproduce the results that were discussed in the report in section 4.1 please make sure to use the provided datasets. Additionally, I assume you are in the kNN folder. Each example is presented in the form of the desired **goal**, the necessary **command** to achieve the goal, and the expected **output**.
 
 **Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).
-**Command:**
+**Command:**   
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-binary-train.csv ../dataset/kNN/kNN-binary-test.csv true 1
 ```
@@ -70,7 +70,7 @@ F1:        0.613
 ____
 
 **Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).
-**Command:**
+**Command:**  
 ```
 java -jar kNN.jar ../dataset/kNN/kNN-multilevel-train.csv ../dataset/kNN/kNN-multilevel-test.csv true 1
 
@@ -257,3 +257,13 @@ avg / total       0.68      0.64      0.63       210
 Accuracy: 0.638095238095
 ```
 ____
+
+### ANN with Matlab
+
+1. Depending on if you want to do the binary classification or the 5-class classification, open up either `csv_data_load_2_class_matlab.m` or `csv_data_load_5_class_matlab.m`. Run the file in order to load the data into the Matlab workspace.
+
+2. Open up `train_NN.m` and run it. It will make use of the data already loaded into memory to run.
+
+3. The Matlab NN-toolbox GUI training window will appear. Once training is complete, it will offer the user choice to plot confusion matrices, error plots and other things.
+
+___
