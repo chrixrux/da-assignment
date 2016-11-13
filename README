@@ -254,3 +254,32 @@ ANN with Matlab
 3. The Matlab NN-toolbox GUI training window will appear. Once training is complete, it will offer the user choice to plot confusion matrices, error plots and other things.
 
 _____________________________________________________________
+
+Decision Tree
+Decision Tree is implemented in Python using scikit-learn package.
+
+Command:
+python DecisionTree.py
+
+Output:
+5 level classification:
+Total values: 210
+Correct: 63
+Wrong: 147
+Percent: 0.3
+Confusion matrix:
+[[ 3  3  3  5  2]
+ [ 2  6  6  5  3]
+ [ 7 19 15 10  4]
+ [ 9  8 19 20 15]
+ [ 0  8  5 14 19]]
+
+Binary classification:
+Total values: 210
+Correct: 138
+Wrong: 72
+Percent: 0.6571428571428571
+Confusion matrix:
+[[76 41]
+ [31 62]]
+ _____________________________________________________________

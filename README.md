@@ -266,7 +266,6 @@ ____
 
 ___
 
-
 ### Decision Tree
 Decision Tree is implemented in Python using scikit-learn package.
 
