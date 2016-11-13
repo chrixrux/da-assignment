@@ -1,7 +1,6 @@
 package kNN;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -167,6 +166,7 @@ public  class KNN {
 			}
 			System.out.println();
 		}
+		//Print averages
 		System.out.println("\nAverage Evaluation Metrics:");
 		System.out.printf("Precision: %.3f%n", avgValues[0]);
 		System.out.printf("Recall: %8.3f%n", avgValues[1]);
