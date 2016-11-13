@@ -1,51 +1,52 @@
-# NTU CZ4032 - Data Analytics and Mining - Group 34
-## Predicting School Performance in Portuguese Youth
-This is the plain README.txt file, however we recommend to read the formatted Markdown file available at: https://github.com/chrixrux/da-assignment.
+NTU CZ4032 - Data Analytics and Mining - Group 34
+Predicting School Performance in Portuguese Youth
+This is the plain and hard to read README.txt file, however we recommend to follow the formatted and much easier to read Markdown file available at: https://github.com/chrixrux/da-assignment.
+This repo was also used during development and contains all the code.
 
-### Group Members
-Name | Matric. Number
----- | -------------
-Skala Matous | N1602866H
-Widmer Christian | N1602590C
-Hunshamar Bjørnar | N1602951E
-Efrem Afework Yared | N1603716J
-Groschupp Friederike Juliane | N1602589L
+Group Members:
+Name                            | Matric. Number
+------------------------------- | -------------
+Skala Matous                    | N1602866H
+Widmer Christian                | N1602590C
+Hunshamar Bjørnar               | N1602951E
+Efrem Afework Yared             | N1603716J
+Groschupp Friederike Juliane    | N1602589L
 Arcenas Carlos Alberto Lagdameo | N1604152E
 
-____
+_____________________________________________________________
 
-### k nearest Neighbour
+k nearest Neighbour
 The k nearest neighbor algorithm was implemented in Java from scratch. It can be used either with a training set and a separate test set or just one set with a specified percentage to use for testing.
 Please make sure that only valid CSV files, i.e. commas as delimiters and dots as decimal separators, are passed as arguments.
 
-The submitted zip contains all files necessary to build and run the algorithm. Please navigate to the kNN folder and type `ant` to execute the Ant build file and create the runnable jar. Afterwards you can type
-```
+The submitted zip contains all files necessary to build and run the algorithm. Please navigate to the kNN folder and type `ant` to execute the Ant build file and create the runnable jar. Afterwards you can type:
+
 java -jar kNN.jar pathToTrainingSet pathToTestSet header k
-```
+
 to run the program with two separate sets or type
-```
+
 java -jar kNN.jar pathToDataset header percentage k seed
-```
+
 to start it with just one set.
 
-- **pathTo*Set:** Specifies the path to the dataset(s) relative to the current directory.
-- **header:** Boolean variable specifying whether the dataset contains a header row with attribute names. If you use the program with a separate testing set, this value is applied to both sets.
-- **percentage:** Percentage of the whole dataset to use for testing.
-- **k:** Number of neighbors used for classification.
-- **seed:** The seed used to select the test set. This is not necessary when using a separate test set.
+- pathTo*Set: Specifies the path to the dataset(s) relative to the current directory.
+- header: Boolean variable specifying whether the dataset contains a header row with attribute names. If you use the program with a separate testing set, this value is applied to both sets.
+- percentage: Percentage of the whole dataset to use for testing.
+- k: Number of neighbors used for classification.
+- seed: The seed used to select the test set. This is not necessary when using a separate test set.
 
-**The last column of the set will always be chosen as the class label.**
+The last column of the set will always be chosen as the class label.
 
-#### How to reproduce the results
+How to reproduce the results
 To reproduce the results that were discussed in the report in section 4.1 please make sure to use the provided datasets. Additionally, I assume you are in the kNN folder. Each example is presented in the form of the desired **goal**, the necessary **command** to achieve the goal, and the expected **output**.
 
-**Goal:** Binary classify the provided test set (As in section 4.1.1 of the report).
-**Command:**
-```
+Goal: Binary classify the provided test set (As in section 4.1.1 of the report).
+Command:
+
 java -jar kNN.jar ../dataset/kNN/kNN-binary-train.csv ../dataset/kNN/kNN-binary-test.csv true 1
-```
-**Output:**
-```
+
+Output:
+
 Classified using 1 nearest neighbours
 Total test instances: 210.0
 Correctly classified instances: 129.0
@@ -66,17 +67,15 @@ Average Evaluation Metrics:
 Precision: 0.633
 Recall:    0.628
 F1:        0.613
-```
-____
+_____________________________________________________________
 
-**Goal:** Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).
-**Command:**
-```
+Goal: Perform multilevel classification with 5 class labels (As in section 4.1.2 of the report).
+Command:
+
 java -jar kNN.jar ../dataset/kNN/kNN-multilevel-train.csv ../dataset/kNN/kNN-multilevel-test.csv true 1
 
-```
-**Output:**
-```
+Output:
+
 Classified using 1 nearest neighbours
 Total test instances: 210.0
 Correctly classified instances: 69.0
@@ -103,23 +102,20 @@ Average Evaluation Metrics:
 Precision: 0.319
 Recall:    0.325
 F1:        0.312
-```
-**Comment:** 1 corresponds to "Very Good", ..., 5 corresponds to "Fail".
-_____
+
+Comment: 1 corresponds to "Very Good", ..., 5 corresponds to "Fail".
+_____________________________________________________________
 
 
-### Neural Network for Regression
+Neural Network for Regression
 Neural network is implemented in Python with use of TensorFlow library.
 
 There is a train and test set loss printed every 100 training epochs on output. In the end, summary is printed separately for train and test set.
 
-**Command:**
-```
+Command:
 python regression.py
-```
 
-**Output:**
-```
+Output:
 Testing Set: 210 items
 Training Set: 422 items
 Epoch: 000/4000 train loss: 92.057121277 test loss: 86.788223267
@@ -176,20 +172,16 @@ Relative Absolute Error:  87.6588 %
 Root Relative Squared Error:  91.0855 %
 ===
 Absolute Loss Difference:  1.1548
-```
-____
+_____________________________________________________________
 
 
-### Linear Regression
+Linear Regression
 Linear regression is implemented in Python using scikit-learn package.
 
-**Command:**
-```
+Command:
 python lr.py
-```
 
-**Output:**
-```
+Output:
 Predict AVG Grade
 ('Coefficients: \n', array([  6.23495532e-01,  -3.82159144e-01,   1.76563389e-01,
          6.43945456e-03,  -1.67556713e-01,   2.78285674e-01,
@@ -208,20 +200,16 @@ Mean absolute error: 1.77
 Relative absolute error: 86.6668 %
 Variance score: 0.17
 R2 Score (coefficient of determination): 0.174584
-```
-____
+_____________________________________________________________
 
 
-### Naive Bayes
+Naive Bayes
 Naive Bayes is implemented in Python using scikit-learn package.
 
-**Command:**
-```
+Command:
 python bayes.py
-```
 
-**Output:**
-```
+Output:
 Predict AVG Grade Class
 Confusion Matrix
 [[15  0  1  0  0]
@@ -255,10 +243,9 @@ Classification Report
 avg / total       0.68      0.64      0.63       210
 
 Accuracy: 0.638095238095
-```
-____
+_____________________________________________________________
 
-### ANN with Matlab
+ANN with Matlab
 
 1. Depending on if you want to do the binary classification or the 5-class classification, open up either `csv_data_load_2_class_matlab.m` or `csv_data_load_5_class_matlab.m`. Run the file in order to load the data into the Matlab workspace.
 
@@ -266,4 +253,4 @@ ____
 
 3. The Matlab NN-toolbox GUI training window will appear. Once training is complete, it will offer the user choice to plot confusion matrices, error plots and other things.
 
-___
+_____________________________________________________________

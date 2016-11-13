@@ -1,7 +1,5 @@
 # NTU CZ4032 - Data Analytics and Mining - Group 34
 ## Predicting School Performance in Portuguese Youth
-This is the plain README.txt file, however we recommend to read the formatted Markdown file available at: https://github.com/chrixrux/da-assignment.
-
 ### Group Members
 Name | Matric. Number
 ---- | -------------
