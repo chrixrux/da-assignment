@@ -1,0 +1,119 @@
+\section{Approach}	
+	\subsection{Data Preprocessing}
+	Data preprocessing is an essential part of data mining, as it ensures that the data analysis can be run smoothly and that the acquired results are reliable and not blurred by outliers or missing values. As the data set was already used for data mining in other studies, it was found to be in good condition. Nevertheless, some adjustments were necessary.
+	\\
+	\\ These adjustments included:
+	\begin{itemize}
+	    \item Data cleaning: While going through the data sets, it was realized that some students had relatively high grades in Term 1 and occasionally in Term 2, but had a grade of 0 in the third term. Given that, it was assumed that, in the most likely case, the students dropped out of the school programme. To make sure that these data points do not negatively affect the results, their records were deleted from the database.
+	    \item Data transformation: Most of the algorithms implemented in this experiment only work with numbers, not with nominal attributes. There are four attributes in the database that are nominal: ``Mother's job'', ``father's job'', ``reason to choose this school'' and the ``guardian''. It was decided that transformation of the parent's job attributes to binary attributes—to ``at home'' and ``at work'' was necessary. The values the attributes could take before were not distinct enough, and that not much information would be lost with the transformation. The other two attributes were transformed through binarization: that is, the splitting up in binary attributes for every of their possible values. Additionally, most of the binary attributes did not have 0 and 1 as their only values, rendering a transformation necessary for these attributes as well..
+	   % \item Introduction of new attributes: As we decided to predict the average grade and the change of the grade from term 1 to term 2 of a student, we calculated the values from the grades of term 1 to term 2 and introduced them as new attributes.
+	    \end{itemize}
+	    
+	    \subsubsection{Feature sub-selection}
+	    Initially the CfsSubsetEval filter provided by Weka was used to select the features to be used in each of the algorithms. The filter ranks the possible subsets by considering the individual impact of each feature and the redundancy between them. However, it was discovered that a sub-selection of attributes had little to no effect on the accuracy of the classifiers. This is likely because many techniques apply the embedded approach, i.e. feature sub-selection from all features present in the data set occurs naturally as part of the data analysis algorithm.
+	    
+	    \subsubsection{Distribution of training and test Set}
+	    After the data cleaning, the full data set with 632 instances was shuffled and split into a training set with 422 records, i.e. two thirds (67 \%) of the original data set; and a test set containing 210 data objects, i.e. one third (33 \%) of the full data set. The split is shown in Table 4.
+	    
+	    \begin{table}[h]
+	        \centering
+	        \begin{tabular}{cccc}
+	        \hline
+	            Class &  Training set & Test set & Sum\\ \hline
+	            Above & 210 & 93  & 303 \\
+	            Below & 212 & 117 & 329\\ \hline
+	            Sum & 422 & 210 & 632 \\
+	            \hline
+	        \end{tabular}
+	        \caption{Distribution of binary classes among training and test set}
+	        \label{tab:binClassDistribution}
+	    \end{table}
+	    
+	    Table \ref{tab:binClassDistribution} shows the distribution of records according to their binary class label in the training and test set. In our case 49\% of the training set and 44\% of the test set have the class label ``Above''. Table \ref{tab:multiClassDistribution} shows the distribution when using 5 class labels ranging from ``Very Good'' to ``Fail''.
+	    
+	    \begin{table}[h]
+	        \centering
+	        \begin{tabular}{cccc}
+	        \hline
+	            Class &  Training set & Test set & Sum\\ \hline
+	            Very Good & 31  & 16 & 47 \\
+	            Good & 67 & 22 & 89 \\
+	            Satisfactory & 112  & 55 & 167 \\
+	            Sufficient & 116 & 71 & 187 \\
+	            Fail & 96  & 46 & 142 \\ \hline
+	            Sum & 422 & 210 & 632 \\
+	            \hline
+	        \end{tabular}
+	        \caption{Distribution of 5 label classes among training and test set}
+	        \label{tab:multiClassDistribution}
+	    \end{table}
+
+	\subsection{Algorithms}
+	Across this experiment, five different data mining techniques were chosen to analyze the aims of the experiment. The techniques used are Linear Regression, Naive Bayes Classifiers, k-nearest Neighbours, Artificial Neural Networks, and Decision Trees. In the following sections, each of the implemented algorithms is described in detail.
+	
+	\subsubsection{Linear Regression (LR)}
+	Regression is a predictive technique where the target variable is continuous. The linear regression algorithm (LR) attempts to predict a dependent variable \(y\) as a linear combination of inputs \(x_1, x_2, ..., x_n\):
+	\begin{align}
+	y = w_0 + w_1x_1 + w_2x_2 + ... + w_nx_n
+	\end{align}
+	where \(w_0, w_1, ..., w_n\) are known as regression coefficients or weights.
+
+	
+	The Ordinary Least Squares (OLS) estimator is the most common method for solving the linear regression problem.
+	\\
+	Given data set \({(x_p, d_p)}^P_{p=1}\). Let \(y_p\) be the predicted output for \(\textbf{x}_p = (x_{p,1}, x_{p,2}, ..., x_{p,n})\). Equation (1) can be written in matrix form: \(\textbf{Xw} = \textbf{y}\).
+	OLS method minimizes the sum of squared residuals and leads to the following expression for the estimated value of the unknown parameter \(\textbf{w}\):
+	\begin{align}
+	\textbf{ŵ} = (\textbf{X}^T\textbf{X})^{-1}\textbf{X}^T\textbf{d}
+	\end{align}
+
+	\subsubsection{Naïve Bayes Classifier (NB)}
+	The Naïve Bayes classifier (NB) is a simple but popular classification method. It predicts the probability of an unknown instance to belong to class $C$ based on the attributes $A$; in other words, the goal is to find the value $x$ of class $C$ that maximizes the posterior probability of $C$ given $A$ $P(C|A)$ (3). In order to do so, the method makes the assumption that each attribute is independent of the others (4). This assumption is called the Naïve Bayes assumption.
+	\begin{align}
+			x_{max} = \argmax_{x \in C} &= P(x|A_1, ..., A_n) \\
+			&= \frac{P(A_1, ..., A_n|x)P(x)}{P(A_1, ..., A_n)} \\
+			&= P(A_1, ..., A_n|x)P(x) \\
+			&= P(A_1|x) \cdot ... \cdot P(A_n|x) \cdot P(x) \\
+			&= \prod_{i = 1}^{n}P(A_i|x) \cdot P(x)
+	\end{align}
+	
+	\subsubsection{k-Nearest Neighbor (kNN)}
+	The k-Nearest Neighbor algorithm (kNN) is an instance-based classifier that is based on comparing similarities between instances. kNN can be used for regression and classification. The similarity is measured by using a distance metric, such as the Euclidean distance between instances. Instances with smaller distances are considered to be more similar. The parameter $k$ specifies the number of neighbors used for the regression or classification. Typically, $k$ takes small integer values. When a new instance is introduced, the algorithm computes the distance to all existing instances and selects the nearest neighbors, with quantity specified by $k$.   
+	\begin{itemize}
+		\item When used as a classification algorithm, the class of the unknown instance will be determined by majority vote of the nearest neighbors, i.e. the new instance will be assigned to the class most common among its neighbors. 
+		\item When used as a regression algorithm, the value of the unknown instance is found as the average of the value of its neighbors.	 
+	\end{itemize}
+	
+	For the best accuracy it is important to determine the optimal value for the parameter $k$. While a small value for $k$ makes the result prone to noise and outliers, a larger value means the k-nearest neighbors include instances that have little similarity with the unknown one. A possible solution is to not give every neighbor one vote, but to weigh every neighbor based on the distance to the new instance. For instance, a weight of $\frac{1}{d}$ means that closer instances have more weight than further ones. 
+	\\	
+	Additionally, the chosen distance metric can also have a high impact on the accuracy. One possible distance metric is the Euclidean distance, however this requires all attributes to be normalized. With that considered, this report chose to use the Euclidean distance, prompting the need to normalize each attribute.
+
+	\subsubsection{Artificial Neural Networks (NN)}
+	An artificial neural network (NN) is a machine-learning approach that is based on the biological neural network of the human brain. This experiment implemented a multilayer perceptron network (MLP) which is a feed-forward neural network. The feed-forward NN consists of multiple layers, with each layer made up of multiple artificial neurons, also known as perceptrons. Each perceptron of one layer is linked to each perceptron of the next layer. These links are weighted, and during the learning phase the network is learning by adjusting the weights on each link to predict the class of the input samples. A supervised learning algorithm known as backpropagation is used, along with the gradient descent optimization algorithm.
+	The MLP in this experiment has 35 input nodes, with each corresponding to one of the 35 attributes found in the data set.
+	
+	This experiment implemented two types of ANN: one for regression, to predict the grade of a student as a real number; and one for classification, to predict the grade of a student as within one of the five bands as described earlier.
+	
+	\subsubsection{Decision Trees (DT)}
+	The idea of decision trees (DT) is to introduce decision nodes that categorize the instances based on the value of one attribute per node, thereby dividing the data set into multiple subsets. Each of the new subsets becomes more homogeneous, meaning. it contains less different classes. The goal is to achieve a homogeneous class distribution—however, this is prone to over-fitting. 
+	To be able to compare different nodes and find possible decision nodes a metric was needed to measure the node impurity, i.e. how many different classes are in one node. In fact there are several ways to measure node impurity, for example the Gini Index or Entropy.
+	
+	The experiment's implementation of decision trees in Python used the sklearn library that implements an optimized version of the CART algorithm and chooses the best split according to the Gini Index:
+	
+	When a node $p$ is split into $k$ partitions, the quality of the split $GINI_{split}$ is computed as,
+	\begin{equation}
+	    GINI_{split}(p) = \sum_{i = 1}^{k} \frac{n_i}{n} GINI(i)
+	\end{equation}
+	 where $n_i$ is the number of records at partition $i$ and $n$ the number of records at node $p$. 
+	 
+	 For each of the partitions $i$ the Gini Index is computed as,
+	 \begin{equation}
+	     GINI(i) = 1 - \sum_{j}^{n_c}(P(j|i))^2
+	 \end{equation}
+	 where $P(j|i)$ is the relative frequency of class $j$ at partition $i$ and $n_c$ the number of classes. 
+	
+	% Explanation regarding minimum/maximum values
+	
+	
+
+	

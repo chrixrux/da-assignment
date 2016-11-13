@@ -1,0 +1,43 @@
+\section{Implementations}
+\subsection{Linear Regression}
+The experiment's linear regression algorithm was implemented in Python with the use of the scikit-learn package. On the Weka end, the LinearRegression classifier was used.
+
+\subsection{Naîve Bayes}
+Similar to the linear regression implementation, the experiment's naîve Bayes classifier was implemented in Python with the use of the scikit-learn package. On the Weka end, the NaiveBayes classifier was used.
+
+\subsection{k-Nearest Neighbour}
+The kNN algorithm was implemented from scratch in Java without using any external libraries and achieved comparable results to the kNN classifier as provided by Weka. The result comparison between the experiment's implementation and Weka can be found in the next section.
+\\
+\\Because the kNN algorithm implemented is a ``lazy learner'' there is no typical ``learning phase'' like other techniques (e.g. ANNs) have. Instead, the ``learning'' is performed each time when an unknown instance is passed to the algorithm. However, there are still two phases of the kNN algorithm that can be differentiated.
+In the first phase all training instances are loaded and each record stored as an Instance object. Listing \ref{lst:kNNInstance} shows the implementation of the instance object in Java. In the second phase each test instance is taken from the test set and the euclidean distance is calculated, as shown in Listing \ref{lst:kNNEuclidean}. Subsequently, the k nearest neighbours are chosen and the class label of the test instance is determined by the most common class label among the neighbours.
+
+\begin{lstlisting}[language=Java, caption={POJO to store instances}, label=lst:kNNInstance]
+public class Instance implements Comparable<Instance> {
+	public double[] attributes;
+	public String classValue;
+	//Will be set when calculating nearest neighbour
+	public double distance;
+	
+	public Instance(double[] attributes, String classValue) {
+		super();
+		this.attributes = attributes;
+		this.classValue = classValue;
+	}	
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption={Calculate euclidean distance}, label=lst:kNNEuclidean]
+private double calculateEuclidieanDistance(Instance from, Instance to) {
+		double distance = 0.0;
+		for(int i = 0; i < from.attributes.length; i++) {
+			distance += Math.pow(from.attributes[i] - to.attributes[i], 2);
+		}
+		return Math.sqrt(distance);
+	}
+\end{lstlisting}
+
+\subsection{Artificial Neural Networks}
+The regression was implemented in Python, using Google's TensorFlow library for ANN, while the classifier was implemented using Matlab's Neural Pattern Recognition tool. The 
+
+\subsection{Decision Trees}
+The Decision Tree classifiers were implemented in Python using the DecisionTreeClassifier() class provided by the sklearn library. This was used both for the 5-level classifier and the binary classifier. After experimenting with different values in the object constructor, it was discovered that the default values gave the best results. The Gini impurity was used to measure the quality of the split, and had no limit on the number of features, maximum depth and and amount of leaf nodes. On the Weka end, the J48 classifier was used for comparison.

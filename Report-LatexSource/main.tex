@@ -1,0 +1,79 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabu}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{green},
+  keywordstyle=\color{magenta},
+  stringstyle=\color{red},
+  identifierstyle=\color{blue},
+  basicstyle=\ttfamily,
+}
+
+\begin{document}
+
+% title page initialization has to  be inside documents,  so that we can use tabular in author
+\title{Predicting School Performance \\ in \\ Portuguese Youth}
+\author{
+\begin{tabular}{lcc}
+\hline
+Name & Matriculation Nr. & Contribution\\ \hline
+    Skála Matouš & N1602866H & 17 \%\\
+Arcenas Carlos Alberto Lagdameo  & N1604152E & 17 \%\\
+Widmer Christian  & N1602590C & 17 \%\\
+Hunshamar Bjørnar & N1602951E & 17 \%\\
+Groschupp Friederike Juliane & N1602589L & 17 \%\\
+Efrem Afework Yared & N1603716J & 17 \% \\ \hline
+\end{tabular}
+}
+\date{\today}
+
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\input{abstract}
+
+\newpage
+
+\input{problemDescription}
+\input{approach}
+\input{implementations}
+\input{results}
+%\input{discussion}
+% We don't need a seperate discussions section. Everything can be explained in the results and conclusion chapters
+\input{conclusion}
+
+\bibliographystyle{abbrv}
+\bibliography{bibliography}
+
+%data set:
+%insufficient information
+%other factors more influence
+%further:
+%development of grades over lifetime
+%impact of social influences over the time
+%
+
+\end{document}

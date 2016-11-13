@@ -1,0 +1,92 @@
+\section{Problem Description}
+\subsection{Motivation}
+The performance of students in an academic setting is almost always measured through the use of a raw or weighted score summarizing the success and compliance of a student's work to set benchmarks across a certain period. While common perception regarding a student's performance typically revolves around the number of hours spent studying for assessments, it is understood that many other factors can feed into determining whether a student performs at an academically high or low level. These factors range from simply-described features such as a student's biological sex to more varied and complex phenomena such as a student's family's education status. Given this wide catchment, forming an efficient and targeted approach to improving the scores of those who may be under-performing will have to take all of these factors into account. With the advent of data mining, it would be possible to determine and direct sources of external help, from simple efforts such as the placement of students in supplementary classes, to bigger efforts such as the mobilization of governmental and national resources to help support what would otherwise be under-performing students.
+
+
+\subsection{Problem Definition}
+The database of student records, describing Portuguese student information and performance, was sourced from two public schools in Portugal, covering the 2005-2006 academic year. The database was split into two different data sets, corresponding to the specific subject these grades were sourced from. The subjects covered were mathematics, and studies of the Portuguese language. There are 1,046 instances across both data sets, with Portuguese results contributing 650 records, and Mathematics picking up the rest, each describing a specific student, with 382 students having records across both data sets. Each record is described by a manner of 30 attributes covering various demographic qualities of a student, from basic biological information like a student's sex and age, to more environmental factors such as a student's access to Internet and the quality of a student's familial relationships. In addition to the demographic qualities, each record contains three scores corresponding to the student's performance in a certain subject at the end of the first, second and third period of grading. Table \ref{table:attributes} includes the names, ranges and abbreviations of each attribute in the data set. The original data set can be obtained from \href{https://archive.ics.uci.edu/ml/datasets/student+alcohol+consumption}{here} . With this data set, this experiment aims to predict the band of arbitrary student's upcoming average grade with their demographic information and previous grades through the use of binary and five-class classifiers. In addition, in a similar vein, this report aims to see if a numerical value for the average grade can be obtained with the same information through linear regression.
+
+\begin{table}
+\center
+\rowcolors{2}{gray!35}{}
+\begin{tabular} {m{1em} m{1.5cm} m{9cm}} 
+ \hline
+ No. & Attribute & Range of values \\
+ \hline
+ 1 & school & ``Gabriel Pereira''=GP, ``Mousinho da Silveira''=MS \\ 
+ 2 & sex & female=F, male=M \\ 
+ 3 & age & number from 15 to 22 \\
+ 4 & address & urban=U, rural=R \\
+ 5 & famsize & ``less than or equal to 3''=LE3, ``greater than 3''=``GT3'' \\
+ 6 & Pstatus & ``parents living together''=T, ``parents living apart''=A \\
+ 7 & Medu & ``no education''=0, ``up to 4th grade''=1, ``between 5th and 9th grade''=2, ``secondary education''=3, ``higher education''=4 \\
+ 8 & Fedu & ``no education''=0, ``up to 4th grade''=1, ``between 5th and 9th grade''=2, ``secondary education''=3, ``higher education''=4 \\
+ 9 & Mjob & teacher=teacher, ``care related''=health, ``civil (e.g. administrative or police)''=services, ``at home''=at\_home, other=other \\
+ 10 & Fjob & teacher=teacher, ``care related''=health, ``civil (e.g. administrative or police)''=services, ``at home''=at\_home, other=other \\
+ 11 & reason & ``close to home''=home, ``school reputation''=reputation, ``course preference''=course, other=``other'' \\
+ 12 & guardian & mother=mother, father=father, other=other \\
+ 13 & traveltime & \textless15min=1, 15-30min=2, 30min-1hour=3, \textgreater1hour=4 \\
+ 14 & studytime & \textless2hours=1, 2-5hours=2, 5-10hours=3, \textgreater10hours=4 \\
+ 15 & failures & 0\textless n\textless3=n, n\textgreater3=4 \\
+16 & schoolsup & yes=yes, no=no \\
+17 & famsup & yes=yes, no=no \\
+18 & paid & yes=yes, no=no \\
+19 & activities & yes=yes, no=no \\
+20 & nursery & yes=yes, no=no \\
+21 & higher & yes=yes, no=no \\
+22 & internet & yes=yes, no=no \\
+23 & romantic & yes=yes, no=no \\
+24 & famrel & rating from ``very bad''=1 to ``excellent''=5 \\
+25 & freetime & rating from ``very low''=1 to ``very high''=5 \\
+26 & goout & rating from ``very low''=1 to ``very high''=5 \\
+27 & Dalc & rating from ``very low''=1 to ``very high''=5 \\
+28 & Walc & rating from ``very low''=1 to ``very high''=5 \\
+29 & health & rating from ``very bad''=1 to ``very good''=5 \\
+30 & absences & number from 0 to 93 \\
+ \hline
+\end{tabular}
+\caption{Names, ranges and abbreviations of each attribute in the data set.}
+\label{table:attributes}
+\end{table}
+\subsubsection{Data set compilation}
+As mentioned in the previous section, the data set was built from two sources. The first source was the official school reports that included the three period grades and each student's number of absences. The second source was the results of a questionnaire with 37 questions designed to extract several demographic (e.g. father's education), social/emotional (e.g. alcohol consumption), and school related variables (e.g. study time). The specific range and definition of each of these attributes are shown in Table 1.
+
+\subsection{Related Works and Subsequent Approaches}
+The data set was initially created by Paulo Cortez and Alice Silva from the University of Minho in Portugal for their report: Using Data Mining To Predict Secondary School Student Performance \cite{cortez2008}. Since then, the data set has also been used as a source for other papers, including the report Predicting Student Alcohol Consumption by Fabio Pagnotta and Mohammad Amran Hossain \cite{alcohol}. 
+Unlike the original study, this experiment did not aim to predict the final ``G3'' grade based on previous grades and social attributes, but instead to predict the average grade using just the social attributes. For this reason the grades as reported from all three periods were merged into one average grade. 
+This allowed for the grouping of the students in regards to their average grade in the following ways:
+\begin{enumerate}
+    \item via Binary Classification: Students can be classified with one of two class labels regarding whether their grade is below or above average. ``Above'' if $ grade  >  12$  and ``Below'' if  $ grade \le  12$, as shown in table \ref{table:binaryClassification}.
+    \item via 5-Level Classification: Students can be assigned to one of 5 groups according to their average grade in ``Very Good'', ``Good'', ``Satisfactory'', ``Sufficient'', and ``Fail'', as shown in table \ref{table:5levelClassification}.
+\end{enumerate}
+
+\begin{table}[h]
+\center
+\begin{tabular}{cccc}
+\hline
+    Class & Condition & Count & Percentage \\
+    \hline
+    Above & $ grade  >   12 $ & 303 & 48\% \\
+    Below & $ grade  \le  12 $ & 329 & 52\% \\
+    \hline
+\end{tabular}
+\caption{Selecting 2 class labels regarding student's average grade}
+\label{table:binaryClassification}
+\end{table}
+\begin{table}[h]
+\center
+\begin{tabular}{cccc}
+\hline
+    Class & Condition & Count & Percentage \\
+    \hline
+    Very Good & $ 16 \le grade \le 20 $ & 47 & 7.4 \% \\
+    Good & $ 14\le grade < 16 $  & 89 & 14.1 \% \\
+    Satisfactory & $ 12\le grade < 14 $ & 167 & 26.4 \% \\
+    Sufficient & $ 10\le grade < 12 $ & 187 & 29.6 \% \\
+    Fail & $ 0 \le grade < 10 $  & 142 & 22.5 \%\\
+    \hline
+\end{tabular}
+\caption{Selecting 5 class labels regarding student's average grades}
+\label{table:5levelClassification}
+\end{table}
+%Add table and histograms
